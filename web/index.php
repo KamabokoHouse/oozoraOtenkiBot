@@ -1,7 +1,7 @@
 <?php
 
 //チャンネルアクセストークン
-$channelAccessToken = 'チャンネルアクセストークン';
+$channelAccessToken = '64OkySA3W34Ej2vPE7j1hdbYldQvnhSBDzfoXoB+B9iGi+xSqsGdBz81tLQinTM2Fg8xbTkUMTg1jnaiqKKo1ez0VdTZTbITqxSQahZEteOzvStBRgakAM7ZTk+tNipbCQQWln2+6x3txgqWzg+mlgdB04t89/1O/w1cDnyilFU=';
 
 //ユーザーからのメッセージ取得
 $inputData = file_get_contents('php://input');
