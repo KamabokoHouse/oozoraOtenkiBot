@@ -49,8 +49,9 @@ switch ($weather) {
 	$date = new DateTime('now');
 	$NowDateTime = date->format('H時i分')
 
-	$messageText = '時刻は$NowDateTime!今日のお空はどんな空〜? 大空お天気の時間です! 今日の都心部は$weatherToJp! 最高気温は$tempMax度、最低気温は$tempMin度です! それでは通勤通学気をつけて、行ってらっしゃ〜い';
+	//$messageText = '時刻は$NowDateTime!今日のお空はどんな空〜? 大空お天気の時間です! 今日の都心部は$weatherToJp! 最高気温は$tempMax度、最低気温は$tempMin度です! それでは通勤通学気をつけて、行ってらっしゃ〜い';
 
+	$messageText == 'temp'
 //メッセージイベントだった場合です
 //テキスト、画像、スタンプなどの場合「message」になります
 //他に、follow postback beacon などがあります
