@@ -12,6 +12,45 @@ $jsonObj = json_decode($inputData);
 //Webhook Eventのタイプを取得
 $eventType = $jsonObj->{"events"}[0]->{"type"};
 
+// TODO:お天気取得API
+$weather = "";
+$urlContents = file_get_contents("http://api.openweathermap.org/data/2.5/weather?q=Tokyo"."&appid=3d60d8b0905b2e9436feb5f451d25319");
+$weatherArray = json_decode($urlContents, true);    //連想配列の場合は第2引数へtrueを指定
+//print_r($weatherArray);
+$weather = $weatherArray['weather'][0]['main'];
+$tempMax = $weatherArray['weather'][0]['temp_max'] - 273.15;
+$tempMin = $weatherArray['weather'][0]['temp_min'] - 273.15;
+
+switch ($weather) {
+	case 'Thunderstorm':
+		$weatherToJp = "雷";
+		break;
+	case 'Drizzle':
+		$weatherToJp = "小雨";
+		break;
+	case 'Rain':
+		$weatherToJp = '雨';
+		break;
+	case 'Snow':
+		$weatherToJp = '雪';
+		break;
+	case 'Clear':
+		$weatherToJp = '晴れ'
+		break;
+	case 'Clouds':
+		$weatherToJp = '晴れ'
+		break;
+	default:
+	  $weatherToJp = '分からないです'
+		break;
+}
+
+// TODO: 返答用の文字列形成
+	$date = new DateTime('now');
+	$NowDateTime = date->format('H時i分')
+
+	$messageText = '時刻は$NowDateTime!今日のお空はどんな空〜? 大空お天気の時間です! 今日の都心部は$weatherToJp! 最高気温は$tempMax度、最低気温は$tempMin度です! それでは通勤通学気をつけて、行ってらっしゃ〜い';
+
 //メッセージイベントだった場合です
 //テキスト、画像、スタンプなどの場合「message」になります
 //他に、follow postback beacon などがあります
@@ -25,45 +64,18 @@ if ($eventType == 'message') {
 	//受信したイベントに対して返信を行うために必要になります
 	$replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
-	//メッセージタイプがtextの場合の処理
-	if ($messageType == 'text') {
-
-		//メッセージテキスト取得
-		//ここで、相手から送られてきたメッセージそのものを取得できます
-		$messageText = $jsonObj->{"events"}[0]->{"message"}->{"text"};
-
-		//返答準備1
-		//単純にテキストで返す場合です
-		//よくあるオウム返しでは、text に $messageText を入れればOKです
+	//メッセージにお天気が含まれていた場合
+	if(strpos($replyToken,'お天気')){
 		$response_format_text = [
 			"type" => "text",
 			"text" => $messageText
 		];
 
-		//返答準備2
-		//先程取得したトークンとともに、返答する準備です
 		$post_data = [
 			"replyToken" => $replyToken,
 			"messages" => [$response_format_text]
 		];
 	}
-	//上記以外のメッセージタイプ
-	//画像やスタンプなどの場合です
-	else {
-
-		//返答準備1
-		$response_format_text = [
-			"type" => "text",
-			"text" => "メッセージ以外は受け取りません！"
-		];
-
-		//返答準備2
-		$post_data = [
-			"replyToken" => $replyToken,
-			"messages" => [$response_format_text]
-		];
-	}
-}
 
 //後は、Reply message用のURLに対して HTTP requestを行うのみです
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
