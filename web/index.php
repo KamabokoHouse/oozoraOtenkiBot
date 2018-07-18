@@ -65,11 +65,9 @@ if ($eventType == 'message') {
 	$replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
 	//メッセージにお天気が含まれていた場合
-	if(strpos($jsonObj->{"events"}[0]->{"message"}->{"text"},'お天気')){
 		$response_format_text = [
 			"type" => "text",
 			"text" => $messageText
-		];
 
 		$post_data = [
 			"replyToken" => $replyToken,
