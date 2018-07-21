@@ -21,7 +21,7 @@ $weather = $weatherArray['weather'][0]['main'];
 $tempMax = $weatherArray['weather'][0]['temp_max'];
 $tempMax = $tempMax - 273.15;
 $tempMin = $weatherArray['weather'][0]['temp_min'];
-$tempMin = $tempMin - 273.15
+$tempMin = $tempMin - 273.15;
 
 switch ($weather) {
 	case 'Thunderstorm':
