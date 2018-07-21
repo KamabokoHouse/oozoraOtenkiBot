@@ -35,13 +35,13 @@ switch ($weather) {
 		$weatherToJp = '雪';
 		break;
 	case 'Clear':
-		$weatherToJp = '晴れ'
+		$weatherToJp = '晴れ';
 		break;
 	case 'Clouds':
-		$weatherToJp = '晴れ'
+		$weatherToJp = '曇り';
 		break;
 	default:
-	  $weatherToJp = '分からないです'
+	  $weatherToJp = '分からないです';
 		break;
 }
 
