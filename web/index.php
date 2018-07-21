@@ -18,8 +18,10 @@ $urlContents = file_get_contents("http://api.openweathermap.org/data/2.5/weather
 $weatherArray = json_decode($urlContents, true);    //連想配列の場合は第2引数へtrueを指定
 //print_r($weatherArray);
 $weather = $weatherArray['weather'][0]['main'];
-$tempMax = $weatherArray['weather'][0]['temp_max'] - 273.15;
-$tempMin = $weatherArray['weather'][0]['temp_min'] - 273.15;
+$tempMax = $weatherArray['weather'][0]['temp_max'];
+$tempMax = $tempMax - 273.15;
+$tempMin = $weatherArray['weather'][0]['temp_min'];
+$tempMin = $tempMin - 273.15
 
 switch ($weather) {
 	case 'Thunderstorm':
