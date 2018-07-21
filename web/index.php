@@ -1,6 +1,5 @@
 <?php
 
-
 //ユーザーからのメッセージ取得
 $inputData = file_get_contents('php://input');
 
