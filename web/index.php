@@ -19,9 +19,7 @@ $weatherArray = json_decode($urlContents, true);    //連想配列の場合は�
 //print_r($weatherArray);
 $weather = $weatherArray['weather'][0]['main'];
 $tempMax = $weatherArray['weather'][0]['temp_max'];
-$tempMax = $tempMax - 273.15;
 $tempMin = $weatherArray['weather'][0]['temp_min'];
-$tempMin = $tempMin - 273.15;
 
 switch ($weather) {
 	case 'Thunderstorm':
