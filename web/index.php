@@ -1,5 +1,8 @@
 <?php
 
+//チャンネルアクセストークン
+$channelAccessToken = getenv('channelAccessToken');
+
 //ユーザーからのメッセージ取得
 $inputData = file_get_contents('php://input');
 
@@ -11,7 +14,7 @@ $eventType = $jsonObj->{"events"}[0]->{"type"};
 
 // TODO:お天気取得API
 $weather = "";
-$urlContents = file_get_contents("http://api.openweathermap.org/data/2.5/weather?q=Tokyo" + $weatherApiToken);
+$urlContents = file_get_contents("http://api.openweathermap.org/data/2.5/weather?q=Tokyo" + getenv('weatherApiToken'));
 $weatherArray = json_decode($urlContents, true);    //連想配列の場合は第2引数へtrueを指定
 //print_r($weatherArray);
 $weather = $weatherArray['weather'][0]['main'];
