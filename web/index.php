@@ -47,7 +47,7 @@ switch ($weather) {
 
 // TODO: 返答用の文字列形成
 	$date = new DateTime('now');
-	$NowDateTime = $date->format('H時i分')
+	$NowDateTime = $date->format('H時i分');
 
 	$messageText = '時刻は$NowDateTime!今日のお空はどんな空〜? 大空お天気の時間です! 今日の都心部は$weatherToJp! 最高気温は$tempMax度、最低気温は$tempMin度です! それでは通勤通学気をつけて、行ってらっしゃ〜い';
 
