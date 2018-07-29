@@ -12,9 +12,11 @@ $jsonObj = json_decode($inputData);
 //Webhook Eventのタイプを取得
 $eventType = $jsonObj->{"events"}[0]->{"type"};
 
+$weatherToken = getenv('weatherApiToken');
+
 // TODO:お天気取得API
 $weather = "";
-$urlContents = file_get_contents("http://api.openweathermap.org/data/2.5/weather?q=Tokyo" + getenv('weatherApiToken'));
+$urlContents = file_get_contents("http://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=${$weatherToken}");
 $weatherArray = json_decode($urlContents, true);    //連想配列の場合は第2引数へtrueを指定
 //print_r($weatherArray);
 $weather = $weatherArray['weather'][0]['main'];
@@ -49,11 +51,14 @@ switch ($weather) {
 	$date = new DateTime('now');
 	$NowDateTime = $date->format('H時i分');
 
-	$messageText = "時刻は${NowDateTime}!今日のお空はどんな空〜?
-	大空お天気の時間です!
-	今日の都心部は${weatherToJp}!
-	最高気温は${tempMax}度、最低気温は${tempMin}度です!
-	それでは通勤通学気をつけて、行ってらっしゃ〜い";
+	$messageText = "時刻は${NowDateTime}!
+今日のお空はどんな空〜?
+大空お天気の時間です!
+
+今日の都心部は${weatherToJp}!
+最高気温は${tempMax}度、最低気温は${tempMin}度です!
+
+それでは通勤通学気をつけて、行ってらっしゃ〜い";
 
 //メッセージイベントだった場合です
 //テキスト、画像、スタンプなどの場合「message」になります
