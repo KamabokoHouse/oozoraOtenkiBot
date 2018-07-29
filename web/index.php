@@ -24,6 +24,13 @@ $weather = $weatherArray['weather'][0]['main'];
 $tempMax = $weatherArray['main']['temp_max'] - 273.15;
 $tempMin = $weatherArray['main']['temp_min'] - 273.15;
 
+// 0xを抜いた数字の部分
+$code = '1000AC';
+// 16進エンコードされたバイナリ文字列をデコード
+$bin = hex2bin(str_repeat('0', 8 - strlen($code)) . $code);
+// UTF8へエンコード
+$emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
+
 switch ($weather) {
 	case 'Thunderstorm':
 		$weatherToJp = "雷";
@@ -41,7 +48,7 @@ switch ($weather) {
 		$weatherToJp = '晴れ';
 		break;
 	case 'Clouds':
-		$weatherToJp = '曇り';
+		$weatherToJp = "曇り${emoticon}";
 		break;
 	default:
 	  $weatherToJp = '分からないです';
