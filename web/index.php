@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Tokyo');
 
 //チャンネルアクセストークン
 $channelAccessToken = getenv('channelAccessToken');
@@ -49,7 +50,7 @@ switch ($weather) {
 
 // TODO: 返答用の文字列形成
 	$date = new DateTime('now');
-	$NowDateTime = $date->format('G時i分');
+	$NowDateTime = $date->format('H時i分');
 
 	$messageText = "時刻は${NowDateTime}!
 今日のお空はどんな空〜?
