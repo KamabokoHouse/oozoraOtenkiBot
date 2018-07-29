@@ -48,7 +48,7 @@ switch ($weather) {
 		$weatherToJp = '晴れ';
 		break;
 	case 'Clouds':
-		$weatherToJp = "曇り${emoticon}";
+		$weatherToJp = "曇り" . $emoticon;
 		break;
 	default:
 	  $weatherToJp = '分からないです';
