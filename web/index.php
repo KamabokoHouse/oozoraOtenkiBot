@@ -68,7 +68,7 @@ $validMessage = $jsonObj->{"events"}[0]->{"message"}->{"text"};
 
 if ($eventType == 'message') {
 		//メッセージにお天気が含まれていた場合
-		if(strpos($validMessage,'お天気')){
+		if(strpos($validMessage,"お天気") !== false){
 			//メッセージタイプ取得
 		 	//ここで、受信したメッセージがテキストか画像かなどを判別できます
 		 	$messageType = $jsonObj->{"events"}[0]->{"message"}->{"type"};
