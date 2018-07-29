@@ -64,26 +64,29 @@ switch ($weather) {
 //メッセージイベントだった場合です
 //テキスト、画像、スタンプなどの場合「message」になります
 //他に、follow postback beacon などがあります
+$validMessage = $jsonObj->{"events"}[0]->{"message"}->{"text"};
+
 if ($eventType == 'message') {
+		//メッセージにお天気が含まれていた場合
+		if(strpos($validMessage,'お天気')){
+			//メッセージタイプ取得
+		 	//ここで、受信したメッセージがテキストか画像かなどを判別できます
+		 	$messageType = $jsonObj->{"events"}[0]->{"message"}->{"type"};
 
-	//メッセージタイプ取得
-	//ここで、受信したメッセージがテキストか画像かなどを判別できます
-	$messageType = $jsonObj->{"events"}[0]->{"message"}->{"type"};
+		 	//ReplyToken取得
+		 	//受信したイベントに対して返信を行うために必要になります
+		 	$replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
-	//ReplyToken取得
-	//受信したイベントに対して返信を行うために必要になります
-	$replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
+		 		$response_format_text = [
+		 			"type" => "text",
+		 			"text" => $messageText
+		 		];
 
-	//メッセージにお天気が含まれていた場合
-		$response_format_text = [
-			"type" => "text",
-			"text" => $messageText
-		];
-
-		$post_data = [
-			"replyToken" => $replyToken,
-			"messages" => [$response_format_text]
-		];
+		 		$post_data = [
+		 			"replyToken" => $replyToken,
+		 			"messages" => [$response_format_text]
+		 		];
+		}
 	}
 
 //後は、Reply message用のURLに対して HTTP requestを行うのみです
