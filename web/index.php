@@ -46,6 +46,7 @@ switch ($weather) {
 		$code = '1000A9';
 		$weatherToJp = '晴れ';
 		break;
+	case 'Fog':
 	case 'Clouds':
 		$code = '1000AC';
 		$weatherToJp = "曇り";
