@@ -24,8 +24,7 @@ $weather = $weatherArray['weather'][0]['main'];
 $tempMax = $weatherArray['main']['temp_max'] - 273.15;
 $tempMin = $weatherArray['main']['temp_min'] - 273.15;
 
-// 0xを抜いた数字の部分
-
+// お天気の判断
 switch ($weather) {
 	case 'Thunderstorm':
 		$code = '10003A';
@@ -61,66 +60,58 @@ $bin = hex2bin(str_repeat('0', 8 - strlen($code)) . $code);
 // UTF8へエンコード
 $emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
 
-// TODO: 返答用の文字列形成
-	$date = new DateTime('now');
-	$NowDateTime = $date->format('H時i分');
-
-	$messageText = "時刻は${NowDateTime}!
-今日のお空はどんな空〜?
-大空お天気の時間です!
-
-今日の都心部は${weatherToJp}${emoticon}!
-最高気温は${tempMax}度、最低気温は${tempMin}度です!
-
-それでは通勤通学気をつけて、行ってらっしゃ〜い";
-
-//友達追加時
-if($eventType == 'follow'){
-	$followMessage = "友達になってくれてありがとう！
+switch ($eventType) {
+	case 'follow':
+	$message = "友達になってくれてありがとう！
 こちらは大空お天気です！
 
 「お天気」と呼びかけてくれると今のお天気をお知らせします！";
+		break;
+
+	case 'message':
+	//メッセージ取得
+	$validMessage = $jsonObj->{"events"}[0]->{"message"}->{"text"};
+
+	//メッセージにお天気が含まれていた場合
+	if(strpos($validMessage,"お天気") !== false){
+		// 返答用の文字列形成
+		$date = new DateTime('now');
+		$NowDateTime = $date->format('H時i分');
+
+		$message = "時刻は${NowDateTime}!
+	今日のお空はどんな空〜?
+	大空お天気の時間です!
+
+	今日の都心部は${weatherToJp}${emoticon}!
+	最高気温は${tempMax}度、最低気温は${tempMin}度です!
+
+	それでは通勤通学気をつけて、行ってらっしゃ〜い";
+	}
+		break;
+
+	default:
+		exit("イベントが対応していません");
+		break;
+
+}
+
+//メッセージタイプ取得
+//ここで、受信したメッセージがテキストか画像かなどを判別できます
+$messageType = $jsonObj->{"events"}[0]->{"message"}->{"type"};
 
 //ReplyToken取得
 //受信したイベントに対して返信を行うために必要になります
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
- $response_format_text = [
-	 "type" => "text",
-	 "text" => $followMessage
- ];
+$response_format_text = [
+	"type" => "text",
+	"text" => $messageText
+];
 
- $post_data = [
-	 "replyToken" => $replyToken,
-	 "messages" => [$response_format_text]
- ];
-}
-
-//メッセージイベントだった場合
-$validMessage = $jsonObj->{"events"}[0]->{"message"}->{"text"};
-
-if ($eventType == 'message') {
-		//メッセージにお天気が含まれていた場合
-		if(strpos($validMessage,"お天気") !== false){
-			//メッセージタイプ取得
-		 	//ここで、受信したメッセージがテキストか画像かなどを判別できます
-		 	$messageType = $jsonObj->{"events"}[0]->{"message"}->{"type"};
-
-		 	//ReplyToken取得
-		 	//受信したイベントに対して返信を行うために必要になります
-		 	$replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
-
-		 		$response_format_text = [
-		 			"type" => "text",
-		 			"text" => $messageText
-		 		];
-
-		 		$post_data = [
-		 			"replyToken" => $replyToken,
-		 			"messages" => [$response_format_text]
-		 		];
-		}
-	}
+$post_data = [
+	"replyToken" => $replyToken,
+	"messages" => [$response_format_text]
+];
 
 //後は、Reply message用のURLに対して HTTP requestを行うのみです
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
