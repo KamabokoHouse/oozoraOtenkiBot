@@ -61,13 +61,15 @@ $bin = hex2bin(str_repeat('0', 8 - strlen($code)) . $code);
 $emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
 
 switch ($eventType) {
+	//友達追加時
 	case 'follow':
-	$message = "友達になってくれてありがとう！
+	$messageText = "友達になってくれてありがとう！
 こちらは大空お天気です！
 
 「お天気」と呼びかけてくれると今のお天気をお知らせします！";
 		break;
 
+	//お天気の返事
 	case 'message':
 	//メッセージ取得
 	$validMessage = $jsonObj->{"events"}[0]->{"message"}->{"text"};
@@ -78,7 +80,7 @@ switch ($eventType) {
 		$date = new DateTime('now');
 		$NowDateTime = $date->format('H時i分');
 
-		$message = "時刻は${NowDateTime}!
+		$messageText = "時刻は${NowDateTime}!
 	今日のお空はどんな空〜?
 	大空お天気の時間です!
 
