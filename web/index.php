@@ -81,13 +81,13 @@ switch ($eventType) {
 		$NowDateTime = $date->format('H時i分');
 
 		$messageText = "時刻は${NowDateTime}!
-	今日のお空はどんな空〜?
-	大空お天気の時間です!
+今日のお空はどんな空〜?
+大空お天気の時間です!
 
-	今日の都心部は${weatherToJp}${emoticon}!
-	最高気温は${tempMax}度、最低気温は${tempMin}度です!
+今日の都心部は${weatherToJp}${emoticon}!
+最高気温は${tempMax}度、最低気温は${tempMin}度です!
 
-	それでは通勤通学気をつけて、行ってらっしゃ〜い";
+それでは通勤通学気をつけて、行ってらっしゃ〜い";
 	}
 		break;
 
