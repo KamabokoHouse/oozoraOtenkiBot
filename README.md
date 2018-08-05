@@ -1,28 +1,17 @@
-# php-getting-started
+# 大空お天気Bot
 
-A barebones PHP app that makes use of the [Silex](http://silex.sensiolabs.org/) web framework, which can easily be deployed to Heroku.
+"お天気"というワードに対して以下の情報をお送りするLine Botです。
+- お天気（Line絵文字つき）
+- 最高気温
+- 最低気温
 
-This application supports the [Getting Started with PHP on Heroku](https://devcenter.heroku.com/articles/getting-started-with-php) article - check it out.
+# 動作環境
 
-## Deploying
+このLine Botはpure phpで書かれています。
+サーバーはherokuを使用しています。
+APIは[openweathermap](https://openweathermap.org/api)を使用しています。
 
-Install the [Heroku Toolbelt](https://toolbelt.heroku.com/).
+# みんな、アイカツを見よう
 
-```sh
-$ git clone git@github.com:heroku/php-getting-started.git # or clone your own fork
-$ cd php-getting-started
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-
-or
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using PHP on Heroku, see these Dev Center articles:
-
-- [Getting Started with PHP on Heroku](https://devcenter.heroku.com/articles/getting-started-with-php)
-- [PHP on Heroku](https://devcenter.heroku.com/categories/php)
+今はアイカツフレンズが放送中です。
+湊みおをよろしくお願いします。
